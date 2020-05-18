@@ -1,1 +1,60 @@
-<p>form-template works!</p>
+<h4 class="animated fade fadeInDown">Formularios <small>template</small></h4>
+<hr>
+<form class="animated fadeInUp" id=formId (ngSubmit)="guardar(refForm)" #refForm="ngForm">
+    <div>
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+                <input minlength="5" #name="ngModel" name="name" [(ngModel)]="usuario.nombre" required class="form-control" type="text" placeholder="Nombre">
+                <span *ngIf="name.errors?.minlength ||name.errors?.required  && name.value != null" class="animated fade fadeInDown text-danger text-center">{{'Verifique si el campo se lleno o que el valor ingresado sea mayor a tres caracteres' | capitalizar}}</span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col-8">
+                <input #lastName="ngModel" minlength="3" [(ngModel)]="usuario.apellido" required name="lastName" class="form-control" type="text" placeholder="Apellido">
+                <span *ngIf="lastName.errors?.minlength ||lastName.errors?.required  && lastName.value != null" class="animated fade fadeInDown text-danger text-center">{{'Verifique si el campo se lleno o que el valor ingresado sea mayor a tres caracteres' | capitalizar}}</span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Numero Telefonico</label>
+            <div class="col-8">
+                <input #phone="ngModel" minlength="10" maxlength="10" [(ngModel)]="usuario.phone" required name="phone" class="form-control" type="text" placeholder="Numero Telefonico">
+                <span *ngIf="phone.errors?.maxlength ||phone.errors?.minlength ||lastName.errors?.required  && phone.value != null" class="animated fade fadeInDown text-center  text-danger">{{'Verifique si el campo se lleno o que el valor ingresadi no se mayo o menor a diez caracteres' | capitalizar}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Correo</label>
+        <div class="col-md-8">
+            <input #email="ngModel" [(ngModel)]="usuario.corre" required name="email" class="form-control" type="email" placeholder="Correo electrónico">
+            <span *ngIf="email.errors?.pattern || email.errors?.required && email.value != null" class="mt-2 text-center text-danger animated fade fadeInDown" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">{{'Verifique si el campo se lleno o que el correo ingresado sea correcto' | capitalizar}}</span>
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Contraseña</label>
+        <div class="col-md-8">
+            <input #contrasena="ngModel" [(ngModel)]="usuario.contrasena" required name="password" class="form-control" type="email" placeholder="contraseña">
+            <p *ngIf="contrasena.errors?.required && contrasena.value != null " class="mt-2 text-danger animated fade fadeInDown" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                {{'Verifique su contraseña' | capitalizar}}</p>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button type="submit" class="btn btn-outline-primary btn-block">
+                Guardar
+            </button>
+            <button type="button" (click)="limpiar()" class="btn btn-block btn-danger">Limpiar campos</button>
+        </div>
+    </div>
+</form>
+<div *ngIf="pristine" class="alert alert-danger animated fade fadeInDown" role="alert">
+    <p> Debe llenar los campos de este formulario para poder ser enviado </p>
+</div>

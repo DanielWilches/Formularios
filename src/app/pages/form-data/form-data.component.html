@@ -1,1 +1,109 @@
-<p>form-data works!</p>
+<h4>Formularios <small>data</small></h4>
+<hr />
+<form [formGroup]="forma" (ngSubmit)="guardarCambios()" novalidate>
+    <div formGroupName="nombreCompleto">
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+                <input formControlName="nombre" class="form-control" type="text" placeholder="Nombre" />
+                <p *ngIf="
+            forma.get('nombreCompleto.nombre').errors?.required &&
+            forma.get('nombreCompleto.nombre').touched
+          " class="m-0 p-0 animated fadeInLeft text-danger">
+                    el valor ingresado es invalido
+                </p>
+                <p *ngIf="forma.get('nombreCompleto.nombre').errors?.minlength" class="m-0 p-0 animated fadeInLeft text-danger">
+                    Este campo requiere mas de tres carracteres
+                </p>
+                <p *ngIf="forma.get('nombreCompleto.nombre').errors?.maxlength" class="m-0 p-0 animated fadeInLeft text-danger">
+                    Este campo no puede poseer mas de 20 carracteres
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col-8">
+                <input formControlName="apellido" class="form-control" type="text" placeholder="Apellido" />
+                <p *ngIf="
+            forma.get('nombreCompleto.apellido').errors?.required &&
+            forma.get('nombreCompleto.apellido').touched
+          " class="m-0 p-0 animated fadeInLeft text-danger">
+                    el valor ingresado es invalido
+                </p>
+                <p *ngIf="forma.get('nombreCompleto.apellido').errors?.minlength" class="m-0 p-0 animated fadeInLeft text-danger">
+                    Este campo requiere mas de tres carracteres
+                </p>
+                <p *ngIf="forma.get('nombreCompleto.apellido').errors?.maxlength" class="m-0 p-0 animated fadeInLeft text-danger">
+                    Este campo no puede poseer mas de 20 carracteres
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Correo</label>
+        <div class="col-md-8">
+            <input formControlName="correo" class="form-control" type="email" placeholder="Correo electrónico" />
+            <p *ngIf="
+          forma.controls['correo'].errors?.required &&
+          forma.controls['correo'].touched
+        " class="m-0 p-0 text-danger animated fadeInLeft">
+                Este campo es obligatorio
+            </p>
+            <p *ngIf="
+          forma.controls['correo'].errors?.pattern &&
+          forma.controls['correo'].touched
+        " class="m-0 p-0 text-danger animated fadeInLeft">
+                El correo ingresado no es valido
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Contraseña</label>
+        <div class="col-md-8">
+            <input type="text" formControlName="password" class="form-control" placeholder="contraseña" />
+            <p *ngIf="forma.controls['password'].errors?.required && forma.controls['password'].touched" class="m-0 p-0 text-danger animated fadeInLeft">
+                Este campo es obligatorio
+            </p>
+            <p *ngIf="forma.controls['password'].errors?.minlength" class="m-0 p-0 text-danger animated fadeInLeft">
+                la contraseña debe tener minimo 4 carracteres
+            </p>
+            <p *ngIf="forma.controls['password'].errors?.maxlength" class="m-0 p-0 text-danger animated fadeInLeft">
+                la contraseña debe tener maximo 10 carracteres
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label"></label>
+        <div class="col-md-8">
+            <input type="text" formControlName="password2" class="form-control" placeholder="repite tu contraseña" />
+            <p *ngIf="forma.controls['password2'].errors?.requiered"
+                class="m-0 p-0 text-danger animated fadeInLeft" >este campo es obligatorio</p>
+            <p  *ngIf="forma.controls['password2'].errors?.noigual && forma.controls['password2'].touched "
+                class="m-0 p-0 text-danger animated fadeInLeft" 
+            >Las contraseña ingresadas no coinsiden</p>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Pasa Tiempos</label>
+        <div class="col-md-8" formArrayName="pasaTiempos">
+            <input *ngFor="let pasatiempo of getControls(); let i = index" [formControlName]="i" type="text" class="form-control mb-1" placeholder="pasa tiempos" />
+            <button type="button" class="btn btn-primary" (click)="agregarPasaTiempos()">
+                Nuevo
+            </button>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button type="submit" class="btn btn-outline-primary btn-block">
+                Guardar
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,7 +1,8 @@
 export class UsuarioModel {
-    name: string;
+    nameComplet: object ;
     lastName: string;
     email: string;
     password: string;
     phone: string;
+    constructor(){}
 }
