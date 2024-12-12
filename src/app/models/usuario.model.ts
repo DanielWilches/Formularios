@@ -4,5 +4,6 @@ export class UsuarioModel {
     email: string;
     password: string;
     phone: string;
+    prueba: string;
     constructor(){}
 }
